@@ -54,6 +54,7 @@ int cow_speed = 0;
 int bright_top = 0;
 int bright_bottom = 0;
 int pos = 0;
+uint32_t color_array[] = {strip1.Color(255,0,0), strip1.Color(0,255,0), strip1.Color(0,0,255)};
 
 //--------Setup--------
 
@@ -77,6 +78,8 @@ void setup() {
   strip2.clear();
   colorWipe2(strip2.Color(color_bottom[0], color_bottom[1], color_bottom[2]), 50);
 
+  rainbowChase(10);
+
   // Inicializa app Blynk e conexão WIFi
   Blynk.begin(auth, ssid, pass);
 }
@@ -97,6 +100,9 @@ void loop() {
       break;
     case 2:
       rainbow1(10);
+      break;
+    case 3:
+      rainbowChase(10);
       break;
   }
 
@@ -140,6 +146,23 @@ void theaterChase1(uint32_t color, int wait) {
       delay(wait);
     }
   }
+}
+
+void rainbowChase(int wait) {
+  int third_len = strip1.numPixels()/3;
+  for(int third=0; third<3; third++) {
+    for(int pixel=third*third_len; pixel<(third+1)*third_len; pixel++) {
+      strip1.setPixelColor(pixel, color_array[third]);
+    }
+    strip1.show();
+    delay(wait);
+  }
+  int first_color = color_array[0];
+  for(int c=0;c<2;c++) {
+    color_array[c] = color_array[c+1];
+  }
+  color_array[2] = first_color;
+  delay(100);
 }
 
 void rainbow1(int wait) {
