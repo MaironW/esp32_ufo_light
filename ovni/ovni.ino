@@ -47,8 +47,8 @@ Servo myservo;
 
 //--------Definição das váriaveis globais--------
 
-int color_top[] = {255, 255, 255};
-int color_bottom[] = {255, 255, 255};
+int color_top[] = {84, 144, 0};
+int color_bottom[] = {252, 0, 231};
 int mode_top = 0;
 int cow_speed = 0;
 int bright_top = 0;
@@ -77,8 +77,6 @@ void setup() {
   strip2.show();
   strip2.clear();
   colorWipe2(strip2.Color(color_bottom[0], color_bottom[1], color_bottom[2]), 50);
-
-  rainbowChase(10);
 
   // Inicializa app Blynk e conexão WIFi
   Blynk.begin(auth, ssid, pass);
